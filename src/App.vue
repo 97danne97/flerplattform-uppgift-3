@@ -1,28 +1,90 @@
 <template>
     <div>
+        <Navbar></Navbar>
         <div class="container">
+        <transition :name=transitionName>
+                <router-view tag="div" id="main" :key="$route.fullPath" :data="data" :response="response" />
+        </transition>
   </div>
     </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Navbar from './components/layout/Navbar'
+import axios from 'axios'
 
 export default {
-  name: 'App',
+    data: function() {
+        return {
+            data: "",
+            response: false
+        };
+    },
   components: {
-    HelloWorld
+        Navbar
+    },
+    watch: {
+        $route(to, from) {
+            const toDepth = to.path.split("/").length;
+            const fromDepth = from.path.split("/").length;
+            this.transitionName = toDepth < fromDepth ? "slide-right" : "slide-left";
   }
+    },
+    methods: {
+        onResponse: function(res) {
+            this.$store.state.drinks = res.data.drinks;
+            this.response = true;
+}
+    },
+    mounted() {
+        //GET-request till API
+        axios
+            .get("https://www.thecocktaildb.com/api/json/v1/1/search.php?s=a")
+            .then(res => {
+                this.onResponse(res); // Kallar på onResponse vid svar från API
+            });
+    }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+body {
+     /*För att sidan inte ska hoppa vid övergångar*/
+     overflow-x: hidden;
+}
+/* fade-övergång för routade element i <transition>-taggar (router-views) */
+.slide-right-enter-active, .slide-right-leave-active {
+    transition: .2s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.slide-right-enter-active {
+    transition-delay: .2s;
+    height: 0;
+}
+.slide-right-enter {
+    opacity: 0;
+    transform: translateX(-10vw);
+}
+.slide-right-leave-active {
+    transform: translateX(10vw);
+    opacity: 0;
+    height: 0;
+}
+/* fade-animation för element i <transition>-taggar (router-views) */
+.slide-left-enter-active, .slide-left-leave-active {
+    transition: .2s cubic-bezier(0.19, 1, 0.22, 1);
+}
+.slide-left-enter-active {
+    transition-delay: .2s;
+    height: 0;
+}
+.slide-left-enter {
+    opacity: 0;
+    transform: translateX(10vw);
+}
+.slide-left-leave-active {
+    opacity: 0;
+    transform: translateX(-10vw);
+    height: 0;
 }
 </style>
