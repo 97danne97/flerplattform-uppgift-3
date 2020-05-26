@@ -3,7 +3,9 @@
         <Navbar></Navbar>
         <div class="container">
         <transition :name=transitionName>
+            <keep-alive include="Drinks">
                 <router-view tag="div" id="main" :key="$route.fullPath" :data="data" :response="response" />
+            </keep-alive>
         </transition>
   </div>
     </div>
@@ -85,6 +87,23 @@ body {
 .slide-left-leave-active {
     opacity: 0;
     transform: translateX(-10vw);
+    height: 0;
+}
+/* fade-animation för element i <transition>-taggar (router-views) */
+.fade-enter-active, .fade-leave-active {
+    transition: .2s cubic-bezier(0.19, 1, 0.62, 1);
+}
+.fade-enter-active {
+    transition-delay: .2s;
+    height: 0;
+}
+.fade-enter {
+    opacity: 0;
+    transform: scale(1.05);
+}
+.fade-leave-active {
+    opacity: 0;
+    transform: scale(0.95);
     height: 0;
 }
 </style>
