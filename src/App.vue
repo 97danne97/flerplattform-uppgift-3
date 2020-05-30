@@ -22,7 +22,7 @@ export default {
             response: false
         };
     },
-  components: {
+    components: {
         Navbar
     },
     watch: {
@@ -36,7 +36,7 @@ export default {
         onResponse: function(res) {
             this.$store.state.drinks = res.data.drinks;
             this.response = true;
-}
+        }
     },
     mounted() {
         //GET-request till API
