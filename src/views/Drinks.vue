@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import DrinkCard from "./DrinkCard";
+import DrinkCard from "../components/DrinkCard";
 import Vue2Filters from "vue2-filters";
 import M from "materialize-css";
 

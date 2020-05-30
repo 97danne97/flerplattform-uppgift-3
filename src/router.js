@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Router from "vue-router";
-import Drinks from "./components/Drinks";
-import Drink from "./components/Drink"
+import Drinks from "./views/Drinks";
+import Drink from "./views/Drink"
 
 Vue.use(Router);
 
