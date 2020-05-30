@@ -27,8 +27,8 @@ export default {
     },
     watch: {
         $route(to, from) {
-            const toDepth = to.path.split("/").length;
-            const fromDepth = from.path.split("/").length;
+            const toDepth = to.meta.depth || 0;
+            const fromDepth = from.meta.depth || 0;
             this.transitionName = toDepth < fromDepth ? "slide-right" : "slide-left";
   }
     },
@@ -65,10 +65,10 @@ body {
 }
 .slide-right-enter {
     opacity: 0;
-    transform: translateX(-10vw);
+    transform: translateX(-200px);
 }
 .slide-right-leave-active {
-    transform: translateX(10vw);
+    transform: translateX(200px);
     opacity: 0;
     height: 0;
 }
@@ -82,11 +82,11 @@ body {
 }
 .slide-left-enter {
     opacity: 0;
-    transform: translateX(10vw);
+    transform: translateX(200px);
 }
 .slide-left-leave-active {
     opacity: 0;
-    transform: translateX(-10vw);
+    transform: translateX(-200px);
     height: 0;
 }
 /* fade-animation för element i <transition>-taggar (router-views) */

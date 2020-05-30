@@ -14,17 +14,24 @@ const router = new Router({
             redirect: '/drinks'
         },
         {
+            meta: {depth: 0},
             path: "/drinks",
             name: "drinks",
             component: Drinks
         },
         {
+            meta: {depth: 1},
             path: "/drinks/:id",
             name: "drink",
             component: Drink,
             props: true
         }
-    ]
+    ],
+    scrollBehavior () {
+        if(router.path != '/drinks'){
+            return { x: 0, y: 0 };
+        }
+    }
 });
 
 export default router;
