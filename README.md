@@ -1,4 +1,14 @@
-# uppgift_3
+# Uppgift 3
+
+## Clone the repository
+```
+git clone https://github.com/97danne97/flerplattform-uppgift-3
+```
+
+## Open terminal and enter project folder
+```
+cd flerplattform-uppgift-3
+```
 
 ## Project setup
 ```
