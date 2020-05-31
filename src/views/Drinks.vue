@@ -71,9 +71,6 @@ export default {
         filters() {
             return this.$store.state.filters;
         }
-        /* filterItems: function() {
-            
-        } */
     },
     mounted() {
         document.addEventListener("DOMContentLoaded", function() {

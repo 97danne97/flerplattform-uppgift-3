@@ -1,27 +1,19 @@
 <template>
     <div>
         <Navbar></Navbar>
-        <div class="container">
         <transition :name=transitionName>
             <keep-alive include="Drinks">
-                <router-view tag="div" id="main" :key="$route.fullPath" :data="data" :response="response" />
+                <router-view tag="div" class="container" :key="$route.fullPath"/>
             </keep-alive>
         </transition>
-  </div>
     </div>
 </template>
 
 <script>
-import Navbar from './components/layout/Navbar'
-import axios from 'axios'
+import Navbar from './components/layout/Navbar';
+import axios from 'axios';
 
 export default {
-    data: function() {
-        return {
-            data: "",
-            response: false
-        };
-    },
     components: {
         Navbar
     },
@@ -30,7 +22,7 @@ export default {
             const toDepth = to.meta.depth || 0;
             const fromDepth = from.meta.depth || 0;
             this.transitionName = toDepth < fromDepth ? "slide-right" : "slide-left";
-  }
+        }
     },
     methods: {
         onResponse: function(res) {
@@ -51,9 +43,10 @@ export default {
 
 <style>
 body {
-     /*För att sidan inte ska hoppa vid övergångar*/
-     overflow-x: hidden;
+    /*För att sidan inte ska hoppa vid övergångar*/
+    overflow-x: hidden;
 }
+
 /* fade-övergång för routade element i <transition>-taggar (router-views) */
 .slide-right-enter-active, .slide-right-leave-active {
     transition: .2s cubic-bezier(0.19, 1, 0.22, 1);
@@ -72,6 +65,7 @@ body {
     opacity: 0;
     height: 0;
 }
+
 /* fade-animation för element i <transition>-taggar (router-views) */
 .slide-left-enter-active, .slide-left-leave-active {
     transition: .2s cubic-bezier(0.19, 1, 0.22, 1);
