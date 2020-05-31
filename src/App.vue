@@ -83,21 +83,15 @@ body {
     transform: translateX(-200px);
     height: 0;
 }
-/* fade-animation för element i <transition>-taggar (router-views) */
-.fade-enter-active, .fade-leave-active {
-    transition: .2s cubic-bezier(0.19, 1, 0.62, 1);
+
+/* Animation för element i <transition-group> -element */
+.list-item {
+  transition: all .3s;
 }
-.fade-enter-active {
-    transition-delay: .2s;
-    height: 0;
+.list-enter, .list-leave-to{
+  opacity: 0;
 }
-.fade-enter {
-    opacity: 0;
-    transform: scale(1.05);
-}
-.fade-leave-active {
-    opacity: 0;
-    transform: scale(0.95);
-    height: 0;
+.list-leave-active {
+  position: absolute;
 }
 </style>
