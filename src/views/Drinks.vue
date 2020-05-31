@@ -40,12 +40,7 @@
                 </li>
             </ul>
         </div>
-        <div class="row">
-            <DrinkCard
-                v-for="(drink, index) in this.$store.state.drinks"
-                :key="index"
-                :drink="drink"
-            ></DrinkCard>
+        <div class="row" id="drinks_list">
         </div>
     </div>
 </template>
@@ -90,4 +85,8 @@ export default {
 </script>
 
 <style scoped>
+#drinks_list{
+    display: flex;
+    flex-wrap: wrap;
+}
 </style>

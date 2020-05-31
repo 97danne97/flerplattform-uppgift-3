@@ -1,5 +1,5 @@
 <template>
-    <div class="col s6 m4 l3">
+    <div class="col s12 m4 l3 drink_card_column">
         <router-link :to="'/drinks/'+drink.idDrink" tag="div" class="card grey lighten-4 hoverable">
             <div class="card-image">
                 <img :src="drink.strDrinkThumb" />
@@ -22,6 +22,13 @@
 </script>
 
 <style scoped>
+.drink_card_column{
+margin-left: 0 !important;
+}
+
+.card{
+    height: calc(100% - 25px);
+}
 .card:hover{
     cursor: pointer;
 }
