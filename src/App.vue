@@ -46,6 +46,7 @@ export default {
 body {
     /*För att sidan inte ska hoppa vid övergångar*/
     overflow-x: hidden;
+    overflow-y: scroll;
 }
 
 /* fade-övergång för routade element i <transition>-taggar (router-views) */
