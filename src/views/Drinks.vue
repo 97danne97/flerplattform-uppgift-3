@@ -9,7 +9,7 @@
             <div class="col s12">
                 <ul class="collapsible z-depth-0">
                     <li>
-                        <div class="collapsible-header grey lighten-3">
+                        <div class="collapsible-header grey lighten-3 waves-effect">
                             <i class="material-icons">settings</i>Filter
                             <span class="new badge purple darken-2" :data-badge-caption="filter_by" v-show="filter_by.length > 0"></span>
                         </div>

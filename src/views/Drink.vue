@@ -1,10 +1,10 @@
 <template>
     <div class="section drink_details_container" v-if="drink">
-        <div id="drink_details_card" class="card grey lighten-4 z-depth-0">
+        <div id="drink_details_card" class="card grey lighten-4">
             <div class="card-content">
                 <div class="row">
                     <div class="col s12 center">
-                        <img id="drink_img" class="responsive-img" :src="drink.strDrinkThumb" />
+                        <img id="drink_img" class="responsive-img z-depth-1" :src="drink.strDrinkThumb" />
                     </div>
                 </div>
                 <div class="row">
@@ -95,9 +95,6 @@ export default {
 #drink_img{
     max-height: 200px;
     margin: auto;
-}
-#drink_details_card{
-    outline: 1px solid rgb(219, 219, 219);
 }
 #ingredients_list{
     display: flex;
