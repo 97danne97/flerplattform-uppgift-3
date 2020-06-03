@@ -26,7 +26,7 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <p>{{drink[strCombine('strMeasure', i)]}}</p>
+                                    <p><b>{{drink[strCombine('strMeasure', i)]}}</b></p>
                                     <p>{{drink[strCombine('strIngredient', i)]}}</p>
                                 </div>
                             </div>
@@ -99,6 +99,9 @@ export default {
 #ingredients_list{
     display: flex;
     overflow-x: auto;
+}
+#ingredients_list>div{
+    width: 110px;
 }
 
 #ingredient_img{
