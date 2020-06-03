@@ -94,6 +94,8 @@ export default {
             var elems = document.querySelectorAll(".collapsible");
             this.instances = M.Collapsible.init(elems);
         });
+
+        this.randomDrinks();
     },
     methods:{
         search: function(){
@@ -115,11 +117,29 @@ export default {
             axios
                 .get("https://www.thecocktaildb.com/api/json/v1/1/search.php?s=" + query)
                 .then(res => {
-                    this.onResponse(res.data.drinks);
+                    this.onResponse(res.data.drinks, 'set');
                 });
         },
-        onResponse: function (drinks){
-            this.$store.state.drinks = drinks;
+        onResponse: function (drinks, mode){
+            let self = this;
+            console.log(drinks)
+            if (mode == 'set'){
+                self.$store.state.drinks = drinks;
+            }else if(mode == 'append'){
+                drinks.forEach(function(drink){
+                    self.$store.state.drinks.push(drink);
+                });
+            }
+        },
+        randomDrinks: function (amount = 10){
+        //GET-request till API för att hämta slumpade drinkar
+        for (let i = amount; i--; i > 0 ) {
+            axios
+                .get("https://www.thecocktaildb.com/api/json/v1/1/random.php")
+                .then(res => {
+                    this.onResponse(res.data.drinks, 'append'); // Kallar på onResponse vid svar från API
+                });
+            }
         }
     }
 };

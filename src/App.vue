@@ -11,7 +11,6 @@
 
 <script>
 import Navbar from './components/layout/Navbar';
-import axios from 'axios';
 
 export default {
     components: {
@@ -27,16 +26,6 @@ export default {
     methods: {
         onResponse: function(res) {
             this.$store.state.drinks.push(res.data.drinks[0]);
-        }
-    },
-    mounted() {
-        //GET-request till API
-        for (let i = 10; i--; i > 0 ) {
-        axios
-            .get("https://www.thecocktaildb.com/api/json/v1/1/random.php")
-            .then(res => {
-                this.onResponse(res); // Kallar på onResponse vid svar från API
-            });
         }
     }
 }
