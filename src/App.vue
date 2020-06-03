@@ -22,11 +22,6 @@ export default {
             const fromDepth = from.meta.depth || 0;
             this.transitionName = toDepth < fromDepth ? "slide-right" : "slide-left";
         }
-    },
-    methods: {
-        onResponse: function(res) {
-            this.$store.state.drinks.push(res.data.drinks[0]);
-        }
     }
 }
 </script>
