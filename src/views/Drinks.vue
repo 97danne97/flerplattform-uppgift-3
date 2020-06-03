@@ -11,7 +11,7 @@
                     <li>
                         <div class="collapsible-header grey lighten-3 waves-effect">
                             <i class="material-icons">settings</i>Settings
-                            <span class="new badge purple darken-2" :data-badge-caption="filter_by" v-show="filter_by.length > 0"></span>
+                            <span class="new badge purple darken-2" data-badge-caption="Custom settings" v-if="filter_by.length > 0 || sort_by.type != 'localId' || sort_mode"></span>
                         </div>
                         <div class="collapsible-body grey lighten-5">
                             <form>
@@ -28,7 +28,7 @@
                                                 </label>
                                             </div>
                                             <div class="col" v-for="(filter, index) in this.filters" :key="index">
-                                                <h5>{{filter.name}}</h5>
+                                                <h5><i class="material-icons left">local_bar</i>{{filter.name}}</h5>
                                                 <div class="divider"></div>
                                                 <div class="row section">
                                                     <div class="col s12" v-for="(item, index) in filter.list" :key="index">
@@ -43,13 +43,13 @@
                                         <div class="col s12 m6">
                                             <h4>Sort</h4>
                                             <div class="col">
-                                                <label class="black-text">
+                                                <label class="black-text" for="localId">
                                                     <input class="with-gap" id="localId" type="radio" value="localId" v-model="sort_by.type"/>
                                                     <span>Default</span>
                                                 </label>
                                             </div>
                                             <div class="col s12">
-                                                <h5>Mode</h5>
+                                                <h5><i class="material-icons left">sort</i>Mode</h5>
                                                 <div class="divider"></div>
                                                 <div class="row section">
                                                     <div class="col s12" v-for="(filter, index) in this.filters" :key="index">
@@ -61,13 +61,13 @@
                                                 </div>
                                             </div>
                                             <div class="col">
-                                                <h5>Direction</h5>
+                                                <h5><i class="material-icons left">sort_by_alpha</i>Direction</h5>
                                                 <div class="divider"></div>
                                                 <div class="row section">
-                                                    <div class="col s12" v-for="(sort_mode, index) in this.sort_modes" :key="index">
-                                                        <label class="black-text" :for="sort_mode.name+'_'+sort_mode.value">
-                                                            <input class="with-gap" :id="sort_mode.name+'_'+sort_mode.value" type="radio" :value="sort_mode.value" v-model="sort_by.mode"/>
-                                                            <span>{{sort_mode.name}}</span>
+                                                    <div class="col s12">
+                                                        <label class="black-text" for="sort_reversed">
+                                                            <input class="black-text" id="sort_reversed" type="checkbox" v-model="sort_by.reversed"/>
+                                                            <span>Reversed</span>
                                                         </label>
                                                     </div>
                                                 </div>
@@ -82,11 +82,12 @@
             </div>
         </div>
         <transition-group name="list" tag="div" class="row" id="drinks_list">
-            <DrinkCard class="list-item" v-for="drink in orderBy(filterBy(filterItems), this.sort_by.type.toString(), this.sort_by.mode)" :key="drink.idDrink" :drink="drink"></DrinkCard>
+            <DrinkCard class="list-item" v-for="drink in orderBy(filterBy(filterItems), this.sort_by.type.toString(), this.sort_mode)" :key="drink.idDrink" :drink="drink"></DrinkCard>
         </transition-group>
         <div class="row">
             <div class="col s12 center">
-                <button v-if="this.filter_by == ''" v-on:click="randomDrinks(8)" class="btn purple darken-2 waves-effect waves-light"><i class="material-icons left">add</i>load more</button>
+                <button v-if="this.filter_by == '' && !this.sort_mode && this.sort_by.type == 'localId'" v-on:click="randomDrinks(8)" class="btn purple darken-2 waves-effect waves-light"><i class="material-icons left">add</i>load more</button>
+                <button v-else class="btn purple darken-2 disabled truncate"><i class="material-icons left">error_outline</i>Use default settings</button>
             </div>
         </div>
     </div>
@@ -110,7 +111,7 @@ export default {
             filter_by: '',
             sort_by: {
                 type:'localId',
-                mode: 0
+                reversed: false,
             },
             sort_modes: [
                 {name:'Ascending (Default)', value: 0},
@@ -124,7 +125,7 @@ export default {
         filters() {
             return this.$store.state.filters;
         },
-        filterItems: function() {
+        filterItems() {
             let self = this;
             let category = self.filter_by;
 
@@ -138,6 +139,15 @@ export default {
                         }
                     return matchFilter;
                 });
+            }
+        },
+        sort_mode() {
+            let sort_mode = this.sort_by.reversed;
+            if(sort_mode == false){
+                return 0;
+            }
+            else{
+                return -1;
             }
         }
     },
@@ -223,6 +233,11 @@ label>input[type=radio]:checked + span::before, label>input[type=radio]:checked 
 }
 label>input[type=radio]:checked + span::after{
     background-color: #9c27b0;
+}
+
+label>input[type=checkbox]:checked + span::before{
+    border-bottom-color: #9c27b0;
+    border-right-color: #9c27b0;
 }
 
 #drinks_list{
