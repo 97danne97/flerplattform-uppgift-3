@@ -27,9 +27,11 @@ const router = new Router({
             props: true
         }
     ],
-    scrollBehavior () {
-        if(router.path != '/drinks'){
-            return { x: 0, y: 0 };
+    scrollBehavior(to, from, savedPosition) { // Scrolla till sparad position mellan routes
+        if (savedPosition) {
+            return savedPosition
+        } else {
+            return {x: 0, y: 0}
         }
     }
 });
