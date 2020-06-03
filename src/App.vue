@@ -1,28 +1,83 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+    <div>
+        <Navbar></Navbar>
+        <transition :name=transitionName>
+            <keep-alive include="Drinks">
+                <router-view tag="div" class="container" :key="$route.fullPath"/>
+            </keep-alive>
+        </transition>
+    </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Navbar from './components/layout/Navbar';
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
+    components: {
+        Navbar
+    },
+    watch: {
+        $route(to, from) {
+            const toDepth = to.meta.depth || 0;
+            const fromDepth = from.meta.depth || 0;
+            this.transitionName = toDepth < fromDepth ? "slide-right" : "slide-left";
+        }
+    }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+body {
+    /*För att sidan inte ska hoppa vid övergångar*/
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+/* fade-övergång för routade element i <transition>-taggar (router-views) */
+.slide-right-enter-active, .slide-right-leave-active {
+    transition: .2s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.slide-right-enter-active {
+    transition-delay: .2s;
+    height: 0;
+}
+.slide-right-enter {
+    opacity: 0;
+    transform: translateX(-200px);
+}
+.slide-right-leave-active {
+    transform: translateX(200px);
+    opacity: 0;
+    height: 0;
+}
+
+/* fade-animation för element i <transition>-taggar (router-views) */
+.slide-left-enter-active, .slide-left-leave-active {
+    transition: .2s cubic-bezier(0.19, 1, 0.22, 1);
+}
+.slide-left-enter-active {
+    transition-delay: .2s;
+    height: 0;
+}
+.slide-left-enter {
+    opacity: 0;
+    transform: translateX(200px);
+}
+.slide-left-leave-active {
+    opacity: 0;
+    transform: translateX(-200px);
+    height: 0;
+}
+
+/* Animation för element i <transition-group> -element */
+.list-item {
+  transition: all .3s;
+}
+.list-enter, .list-leave-to{
+  opacity: 0;
+}
+.list-leave-active {
+  position: absolute;
 }
 </style>
