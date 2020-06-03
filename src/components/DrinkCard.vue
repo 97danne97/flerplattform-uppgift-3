@@ -3,8 +3,9 @@
         <router-link :to="'/drinks/'+drink.idDrink" tag="div" class="card grey lighten-4 hoverable">
             <div class="card-image"><img :src="drink.strDrinkThumb" /></div>
             <div class="card-content">
-                <span class="card-title">{{drink.strDrink}}</span>
                 <p class="truncate grey-text text-darken-1">{{drink.strCategory}}</p>
+                <span class="card-title">{{drink.strDrink}}</span>
+                <p class="truncate grey-text">{{drink.strAlcoholic}}</p>
             </div>
         </router-link>
     </div>
