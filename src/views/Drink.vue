@@ -22,7 +22,7 @@
                             <div class="col" v-for="i in 15" :key="i" v-show='drink[strCombine("strIngredient", i)] != null && drink[strCombine("strIngredient", i)] != ""'>
                                 <div class="card z-depth-0 grey lighten-3">
                                     <div class="card-image">
-                                        <img id="ingredient_img" :src="'https://www.thecocktaildb.com/images/ingredients/'+drink[strCombine('strIngredient', i)]+'-Small.png'" v-if="drink[strCombine('strIngredient', i)] != null" />
+                                        <img id="ingredient_img" :src="'https://www.thecocktaildb.com/images/ingredients/'+drink[strCombine('strIngredient', i)]+'-Small.png'" v-if="drink[strCombine('strIngredient', i)] != null && drink[strCombine('strIngredient', i)] != ''" />
                                     </div>
                                 </div>
                                 <div>
