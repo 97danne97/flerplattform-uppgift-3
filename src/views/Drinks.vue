@@ -184,22 +184,28 @@ export default {
         },
         onResponse: function (drinks, mode){
             let self = this;
-            drinks.forEach(function(drink){
-                drink.localId = drinks.length;
-            });
-            console.log(drinks);
-            if (mode == 'set'){
-                self.$store.state.drinks = drinks;
-            }else if(mode == 'append'){
+            if(drinks != null){
                 drinks.forEach(function(drink){
-                    if (self.$store.state.drinks.some(e => e['idDrink'] === drink.idDrink)) {
-                        console.log('Drink already in list')
-                    }
-                    else{
-                        self.$store.state.drinks.push(drink);
-                        drink.localId = self.$store.state.drinks.length;
-                    }
+                    drink.localId = drinks.length;
                 });
+                console.log(drinks);
+                if (mode == 'set'){
+                    self.$store.state.drinks = drinks;
+                }else if(mode == 'append'){
+                    drinks.forEach(function(drink){
+                        if (self.$store.state.drinks.some(e => e['idDrink'] === drink.idDrink)) {
+                            console.log('Drink already in list')
+                        }
+                        else{
+                            self.$store.state.drinks.push(drink);
+                            drink.localId = self.$store.state.drinks.length;
+                        }
+                    });
+                }
+            }
+            else{
+                M.Toast.dismissAll();
+                M.toast({html: 'No drinks found'})
             }
         },
         randomDrinks: function (amount = 8){
