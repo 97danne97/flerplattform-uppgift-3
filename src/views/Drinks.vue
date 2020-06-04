@@ -2,9 +2,8 @@
     <div class="section">
         <div class="row">
             <div id="drink_search_container" class="input-field col s12">
-                <i class="material-icons prefix black-text">search</i>
                 <input id="drink_search" type="text" v-model="search_query" v-on:keyup="search()" v-on:keyup.enter="$event.target.blur()" />
-                <label for="drink_search" class="black-text">Search drinks...</label>
+                <label for="drink_search" class="black-text"><i class="material-icons left black-text">search</i>Search drinks...</label>
             </div>
             <div class="col s12">
                 <ul class="collapsible z-depth-0">
@@ -220,9 +219,6 @@ export default {
 </script>
 
 <style scoped>
-#drink_search{
-    padding-left: 5px;
-}
 #drink_search:focus{
     border-color: #6a1b9a;
     box-shadow: none;
