@@ -226,11 +226,10 @@ export default {
 
 <style scoped>
 #drink_search:focus{
-    border-color: #6a1b9a;
     box-shadow: none;
 }
 
-label>input[type=radio]:checked + span::before, label>input[type=radio]:checked + span::after{
+#drink_search:focus, label>input[type=radio]:checked + span::before, label>input[type=radio]:checked + span::after{
     border-color: #9c27b0;
 }
 label>input[type=radio]:checked + span::after{
