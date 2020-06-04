@@ -72,10 +72,12 @@ body {
 
 /* Animation för element i <transition-group> -element */
 .list-item {
-  transition: all .3s;
+  transition: all .5s cubic-bezier(0, 0.510, 0.255, 1);
+  transform-origin: top;
 }
 .list-enter, .list-leave-to{
   opacity: 0;
+  transform:  translateY(-20px);
 }
 .list-leave-active {
   position: absolute;
