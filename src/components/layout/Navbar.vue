@@ -13,7 +13,7 @@
             </transition>
             <ul>
                 <li class="right">
-                    <a href="#" data-target="slide-out" class="sidenav-trigger waves-effect"><i class="material-icons">star</i></a>
+                    <a href="#" data-target="slide-out" class="sidenav-trigger waves-effect show-on-large"><i class="material-icons">view_list</i></a>
                 </li>
             </ul>
         </div>

@@ -85,10 +85,4 @@ body {
 .list-leave-active {
   position: absolute;
 }
-
-@media only screen and (min-width : 992px) {
-  #main {
-    padding-left: 300px;
-  }
-}
 </style>

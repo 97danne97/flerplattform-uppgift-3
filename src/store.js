@@ -6,6 +6,7 @@ Vue.use(Vuex)
 export const store = new Vuex.Store({
     state: {
         drinks: [],
+        favorite_drinks:[],
         filters: [
             {
                 name: 'Drink type',

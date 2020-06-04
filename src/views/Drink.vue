@@ -2,17 +2,23 @@
     <div class="section drink_details_container" v-if="drink">
         <div id="drink_details_card" class="card grey lighten-4">
             <div class="card-content">
-                <div class="row">
-                    <div class="col s12 center">
-                        <img id="drink_img" class="responsive-img z-depth-1" :src="drink.strDrinkThumb" />
+                <div class="row center">
+                    <div class="col s12">
+                        <h3>{{drink.strDrink}}</h3>
+                        <div class="chip">{{drink.strCategory}}</div>
+                        <div class="chip">{{drink.strGlass}}</div>
+                        <div class="chip">{{drink.strAlcoholic}}</div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row center section">
                     <div class="col s12">
-                        <h4>{{drink.strDrink}}</h4>
-                        <div class="chip truncate grey lighten-2">{{drink.strCategory}}</div>
-                        <div class="chip truncate grey lighten-2">{{drink.strGlass}}</div>
-                        <div class="chip truncate grey lighten-2">{{drink.strAlcoholic}}</div>
+                        <a v-if="isFavorite" v-on:click="toggleFavorite()" class="btn-flat white-text purple darken-2 waves-effect"><i class="material-icons circle left">done</i>Saved</a>
+                        <a v-else v-on:click="toggleFavorite()" class="btn-flat btn-large grey lighten-2 waves-effect black-text"><i class="material-icons black-text circle left">add</i>Save recipe</a>
+                    </div>
+                </div>
+                <div class="row center">
+                    <div class="col s12 center">
+                        <img id="drink_img" class="responsive-img z-depth-1" :src="drink.strDrinkThumb" />
                     </div>
                 </div>
                 <div class="row">
@@ -54,12 +60,35 @@ export default {
             drink:false
         }
     },
+    computed:{
+        isFavorite(){
+            let self = this;
+            if(self.$store.state.favorite_drinks.some(e => e['idDrink'] === self.drink.idDrink)){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+    },
     methods: {
         strCombine: function (str, index) {
             str = str.toString()
             index = index.toString()
             let x = str+index
             return x
+        },
+        toggleFavorite(){
+            let self = this;
+            if(self.$store.state.favorite_drinks.some(e => e['idDrink'] === self.drink.idDrink)){
+                self.$store.state.favorite_drinks.forEach(function (drink, index) {
+                    if (self.drink.idDrink == drink['idDrink']) {
+                        self.$store.state.favorite_drinks.splice(index, 1)
+                    }
+                });
+            }else{
+                self.$store.state.favorite_drinks.push(self.drink)
+            }
         }
     },
     created(){

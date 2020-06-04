@@ -1,45 +1,69 @@
 <template>
-    <ul id="slide-out" class="sidenav sidenav-fixed">
+    <ul id="slide-out" class="sidenav">
         <li>
-            <div class="user-view">
-                <a href="" class="">
-                    <i class="material-icons large yellow-text text-darken-2">star</i>
-                </a>
-                <a href="#name">
-                    <span class="name black-text">Favorited recipes</span>
-                </a>
-            </div>
+            <h5 class="black-text center-align">Saved recipes</h5>
         </li>
-        <li>
-            <div class="divider"></div>
-        </li>
-        <li v-for="drink in favorite_drinks" :key="drink.idDrink">
-            <router-link tag="a" class="waves-effect sidenav-close" :to="'/drinks/'+drink.idDrink">{{drink.strDrink}}</router-link>
-        </li>
+        <div class="divider"></div>
+        <transition-group name="list" tag="div" class="collection with-header section">
+            <li class="list-item collection-item avatar" v-for="(drink, index) in favorite_drinks" :key="index">
+                <i v-on:click="removeFavorite(drink.idDrink)" class="material-icons right waves-effect red-text text-darken-4">remove_circle_outline</i>
+                <div class="valign-wrapper">
+                    <img :src="drink.strDrinkThumb" :alt="drink.strDrink" class="circle responsive-img"> <!-- notice the "circle" class -->
+                    <router-link tag="a" :to="'/drinks/' + drink.idDrink"  class="black-text blue-text sidenav-close">{{drink.strDrink}}</router-link>
+                </div>
+            </li>
+        </transition-group>
     </ul>
 </template>
 
 <script>
 import M from 'materialize-css'
+import Vue2Filters from 'vue2-filters';
 export default {
     name: 'Favorites',
+    mixins:[Vue2Filters.mixin],
     data(){
         return{
             instances:undefined
         }
     },
+    computed:{
+        favorite_drinks(){return this.$store.state.favorite_drinks}
+    },
     created(){
+        let self = this;
         document.addEventListener('DOMContentLoaded', function() {
             var elems = document.querySelectorAll('.sidenav');
             this.instances = M.Sidenav.init(elems);
         });
 
         if (localStorage.getItem('favorite_drinks')) { // Om recept finns i localStorage
-            this.favorite_drinks = JSON.parse(localStorage.getItem('favorite_drinks'));
-        }else{
-            localStorage.setItem('favorite_drinks', '[]');
+            self.$store.state.favorite_drinks = JSON.parse(localStorage.getItem('favorite_drinks'));
         }
         
+    },
+    watch:{
+        favorite_drinks(val){
+            localStorage.setItem('favorite_drinks', JSON.stringify(val));
+        }
+    },
+    methods:{
+        removeFavorite(id){
+            let self = this;
+            if(self.$store.state.favorite_drinks.some(e => e['idDrink'] === id)){
+                self.$store.state.favorite_drinks.forEach(function (drink, index) {
+                    if (id == drink['idDrink']) {
+                        self.$store.state.favorite_drinks.splice(index, 1)
+                    }
+                });
+            }
+        }
     }
 };
 </script>
+<style scoped>
+.collection, .collection-item{
+    border:none !important;
+    width: 100%;
+}
+</style>
