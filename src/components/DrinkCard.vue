@@ -1,5 +1,5 @@
 <template>
-    <div class="col s12 m4 l3 drink_card_column">
+    <div class="col s12 m4 xl3 drink_card_column">
         <router-link :to="'/drinks/'+drink.idDrink" tag="div" class="card grey lighten-4 hoverable">
             <div class="card-image"><img :src="drink.strDrinkThumb" /></div>
             <div class="card-content">

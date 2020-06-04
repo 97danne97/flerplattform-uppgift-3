@@ -1,6 +1,7 @@
 <template>
-    <div>
+    <div id="main">
         <Navbar></Navbar>
+        <Favorites></Favorites>
         <transition :name=transitionName>
             <keep-alive include="Drinks">
                 <router-view tag="div" class="container" :key="$route.fullPath"/>
@@ -11,10 +12,12 @@
 
 <script>
 import Navbar from './components/layout/Navbar';
+import Favorites from './components/Favorites.vue';
 
 export default {
     components: {
-        Navbar
+        Navbar,
+        Favorites
     },
     watch: {
         $route(to, from) {
@@ -81,5 +84,11 @@ body {
 }
 .list-leave-active {
   position: absolute;
+}
+
+@media only screen and (min-width : 992px) {
+  #main {
+    padding-left: 300px;
+  }
 }
 </style>

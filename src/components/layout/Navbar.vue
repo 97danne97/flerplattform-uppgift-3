@@ -11,6 +11,11 @@
                     </li>
                 </ul>
             </transition>
+            <ul>
+                <li class="right">
+                    <a href="#" data-target="slide-out" class="sidenav-trigger waves-effect"><i class="material-icons">star</i></a>
+                </li>
+            </ul>
         </div>
     </nav>
 </template>
