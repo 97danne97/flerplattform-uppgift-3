@@ -1,4 +1,4 @@
-# uppgift 3
+# Uppgift 3 (Drinksida)
 
 ## Beskrivning
 Som tredje uppgift har jag valt att skapa en webbapplikation som hämtar recept för drinkar från ett API. Pakethantering har skett med NPM och applikationen har versionshanterats här på GitHub. Applikationen använder sig av JS-ramverket Vue tillsammans med officiella plugins.
