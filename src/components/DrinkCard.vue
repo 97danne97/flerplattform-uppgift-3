@@ -1,6 +1,6 @@
 <template>
     <div class="col s12 m4 xl3 drink_card_column">
-        <router-link :to="'/drinks/'+drink.idDrink" tag="div" class="card grey lighten-4 hoverable">
+        <router-link :to="'/drinks/'+drink.idDrink" tag="div" class="card grey lighten-4" :class="{'z-depth-5': !sortDisabled}">
             <div class="card-image"><img :src="drink.strDrinkThumb" /></div>
             <div class="card-content">
                 <p class="truncate grey-text text-darken-1">{{drink.strCategory}}</p>
@@ -14,7 +14,7 @@
 <script>
     export default {
         name: "DrinkCard",
-        props: ["drink"]
+        props: ['drink', 'sortDisabled']
     };
 </script>
 

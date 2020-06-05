@@ -69,6 +69,9 @@ export default {
             else{
                 return false;
             }
+        },
+        favorite_drinks(){
+            return this.$store.state.favorite_drinks
         }
     },
     methods: {
@@ -81,7 +84,7 @@ export default {
         toggleFavorite(){
             let self = this;
             if(self.$store.state.favorite_drinks.some(e => e['idDrink'] === self.drink.idDrink)){
-                self.$store.state.favorite_drinks.forEach(function (drink, index) {
+                self.favorite_drinks.forEach(function (drink, index) {
                     if (self.drink.idDrink == drink['idDrink']) {
                         self.$store.state.favorite_drinks.splice(index, 1)
                     }

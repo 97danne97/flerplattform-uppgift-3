@@ -6,16 +6,20 @@
                 <ul v-show="$route.path != '/drinks'">
                     <li>
                         <router-link tag="a" class="waves-effect left" :to="'/drinks'">
-                            <i class="material-icons">arrow_back</i>
+                            <span class="hide-on-med-and-down">Home</span><i class="material-icons left">home</i>
                         </router-link>
                     </li>
                 </ul>
             </transition>
-            <ul>
-                <li class="right">
-                    <a href="#" data-target="slide-out" class="sidenav-trigger waves-effect show-on-large"><i class="material-icons">view_list</i></a>
-                </li>
-            </ul>
+            <transition name="slide-left">
+                <ul v-show="$route.path != '/favorites'">
+                    <li class="right">
+                        <router-link tag="a" class="waves-effect left" :to="'/favorites'">
+                            <span class="hide-on-med-and-down">Favorites</span><i class="material-icons right">star</i>
+                        </router-link>
+                    </li>
+                </ul>
+            </transition>
         </div>
     </nav>
 </template>

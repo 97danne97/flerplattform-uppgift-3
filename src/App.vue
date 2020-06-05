@@ -1,7 +1,6 @@
 <template>
     <div id="main">
         <Navbar></Navbar>
-        <Favorites></Favorites>
         <transition :name=transitionName>
             <keep-alive include="Drinks">
                 <router-view tag="div" class="container" :key="$route.fullPath"/>
@@ -12,18 +11,30 @@
 
 <script>
 import Navbar from './components/layout/Navbar';
-import Favorites from './components/Favorites.vue';
 
 export default {
     components: {
-        Navbar,
-        Favorites
+        Navbar
+    },
+    computed:{
+        favorite_drinks(){
+            return this.$store.state.favorite_drinks;
+        }
+    },
+    created(){
+        let self = this;
+        if (localStorage.getItem('favorite_drinks')) { // Om recept finns i localStorage
+            self.$store.state.favorite_drinks = JSON.parse(localStorage.getItem('favorite_drinks'));
+        }
     },
     watch: {
         $route(to, from) {
             const toDepth = to.meta.depth || 0;
             const fromDepth = from.meta.depth || 0;
             this.transitionName = toDepth < fromDepth ? "slide-right" : "slide-left";
+        },
+        favorite_drinks(val){
+            localStorage.setItem('favorite_drinks', JSON.stringify(val));
         }
     }
 }

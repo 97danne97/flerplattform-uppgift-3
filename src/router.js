@@ -1,7 +1,8 @@
 import Vue from "vue";
 import Router from "vue-router";
 import Drinks from "./views/Drinks";
-import Drink from "./views/Drink"
+import Drink from "./views/Drink";
+import Favorites from './views/Favorites.vue'
 
 Vue.use(Router);
 
@@ -25,7 +26,14 @@ const router = new Router({
             name: "drink",
             component: Drink,
             props: true
+        },
+        {
+            meta: {depth: 0},
+            path: "/favorites",
+            name: "favorites",
+            component: Favorites
         }
+
     ],
     scrollBehavior(to, from, savedPosition) { // Scrolla till sparad position mellan routes
         if (savedPosition) {

@@ -81,7 +81,7 @@
             </div>
         </div>
         <transition-group name="list" tag="div" class="row" id="drinks_list">
-            <DrinkCard class="list-item" v-for="drink in orderBy(filterBy(filterItems), this.sort_by.type.toString(), this.sort_mode)" :key="drink.idDrink" :drink="drink"></DrinkCard>
+            <DrinkCard class="list-item" v-for="drink in orderBy(filterBy(filterItems), this.sort_by.type.toString(), this.sort_mode)" :key="drink.idDrink" :sortDisabled="true" :drink="drink"></DrinkCard>
         </transition-group>
         <div class="row">
             <div class="col s12 center">
@@ -151,10 +151,8 @@ export default {
         }
     },
     mounted() {
-        document.addEventListener("DOMContentLoaded", function() {
-            var elems = document.querySelectorAll(".collapsible");
-            this.instances = M.Collapsible.init(elems);
-        });
+        var elems = document.querySelectorAll(".collapsible");
+        this.instances = M.Collapsible.init(elems);
 
         this.randomDrinks();
     },
@@ -205,7 +203,7 @@ export default {
             }
             else{
                 M.Toast.dismissAll();
-                M.toast({html: 'No drinks found'})
+                M.toast({html:'No drinks found'})
             }
         },
         randomDrinks: function (amount = 8){
