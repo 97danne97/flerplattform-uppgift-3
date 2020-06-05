@@ -1,7 +1,8 @@
 <template>
     <div id="main">
         <Navbar></Navbar>
-        <transition :name=transitionName>
+        <transition :name=transitionName> <!-- Animation baserat på navigation -->
+            <!-- Router vy, keep alive håller Drinks aktiv alltid -->
             <keep-alive include="Drinks">
                 <router-view tag="div" class="container" :key="$route.fullPath"/>
             </keep-alive>
@@ -17,23 +18,23 @@ export default {
         Navbar
     },
     computed:{
-        favorite_drinks(){
+        favorite_drinks(){ // Skapar variabel med samma namn och som uppdateras när favorite_drinks i store ändras
             return this.$store.state.favorite_drinks;
         }
     },
-    created(){
+    created(){ // När komponenten har skapats hämtas och sparas drinkar från localStorage
         let self = this;
         if (localStorage.getItem('favorite_drinks')) { // Om recept finns i localStorage
             self.$store.state.favorite_drinks = JSON.parse(localStorage.getItem('favorite_drinks'));
         }
     },
-    watch: {
-        $route(to, from) {
+    watch: { // Håller utkit på om $route eller favorite_drinks ändras och kör då funktioner
+        $route(to, from) { // Väljer animation beroende på hur man navigerar mellan routes
             const toDepth = to.meta.depth || 0;
             const fromDepth = from.meta.depth || 0;
             this.transitionName = toDepth < fromDepth ? "slide-right" : "slide-left";
         },
-        favorite_drinks(val){
+        favorite_drinks(val){ // Uppdaterar localStorage när favorite_drinks ändras
             localStorage.setItem('favorite_drinks', JSON.stringify(val));
         }
     }

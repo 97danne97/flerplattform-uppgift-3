@@ -1,5 +1,7 @@
 <template>
-    <div class="section">
+    <div class="section"> <!-- Section för avstånd -->
+
+        <!-- Sökning och filtrering -->
         <div class="row">
             <div id="drink_search_container" class="input-field col s12">
                 <input id="drink_search" type="text" v-model="search_query" v-on:keyup="search()" v-on:keyup.enter="$event.target.blur()" />
@@ -80,9 +82,17 @@
                 </ul>
             </div>
         </div>
+
+        <!-- Rutnät med drinkar -->
+        <!-- Animerar innehållet -->
         <transition-group name="list" tag="div" class="row" id="drinks_list">
+
+            <!-- Avancerad filtrering och sortering med hjälp av Vue2Filters -->
+            <!-- Skapa DrinkCard för varje drink -->
             <DrinkCard class="list-item" v-for="drink in orderBy(filterBy(filterItems), this.sort_by.type.toString(), this.sort_mode)" :key="drink.idDrink" :sortDisabled="true" :drink="drink"></DrinkCard>
         </transition-group>
+
+        <!-- Knapp som genererar fler drinkar -->
         <div class="row">
             <div class="col s12 center">
                 <button v-if="this.filter_by == '' && !this.sort_mode && this.sort_by.type == 'localId'" v-on:click="randomDrinks(8)" class="btn purple darken-2 waves-effect waves-light"><i class="material-icons left">add</i>load more</button>
@@ -117,7 +127,6 @@ export default {
                 {name:'Descending',value: -1}
             ],
             search_query: '',
-            loading: true,
         };
     },
     computed: {
@@ -151,13 +160,14 @@ export default {
         }
     },
     mounted() {
-        var elems = document.querySelectorAll(".collapsible");
+        let elems = document.querySelectorAll(".collapsible");
         this.instances = M.Collapsible.init(elems);
 
+        // Hämtar slumpade drinkar när sidan har laddats in
         this.randomDrinks();
     },
     methods:{
-        search: function(){
+        search: function(){ // Sökfunktion som väntar tills användaren skrivit klart
             let self = this;
             let search_query = this.search_query;
 
@@ -165,6 +175,7 @@ export default {
                 clearTimeout(this.timeout);
             }
 
+            // Om fler än 3 karaktärer i sökning
             if (this.search_query.length > 3) { // Om användaren matat in minst 3 karaktärer i sökrutan
                  this.timeout = setTimeout(function () {
                     console.log(search_query);
@@ -172,18 +183,17 @@ export default {
                 }, 700); // Startar timer
             }
         },
-        fetchDrinks: function(query){
+        fetchDrinks: function(query){ // Hämtar drinkar baserat på sökinmatning
             axios
                 .get("https://www.thecocktaildb.com/api/json/v1/1/search.php?s=" + query)
                 .then(res => {
                     this.onResponse(res.data.drinks, 'set');
-                    this.loading = false;
                 });
         },
         onResponse: function (drinks, mode){
             let self = this;
-            if(drinks != null){
-                drinks.forEach(function(drink){
+            if(drinks != null){ // Om resultatet innehöll drinkar
+                drinks.forEach(function(drink){ // skapar lokaltId för 'cache'
                     drink.localId = drinks.length;
                 });
                 console.log(drinks);
@@ -207,14 +217,12 @@ export default {
             }
         },
         randomDrinks: function (amount = 8){
-            this.loading = true;
             //GET-request till API för att hämta slumpade drinkar
             for (let i = amount; i--; i > 0 ) {
                 axios
                     .get("https://www.thecocktaildb.com/api/json/v1/1/random.php")
                     .then(res => {
                         this.onResponse(res.data.drinks, 'append'); // Kallar på onResponse vid svar från API
-                        this.loading = false;
                     });
             }
         }

@@ -1,8 +1,9 @@
-<template>
+<template> <!-- Komponent för sparade drinkar -->
     <ul class="section container">
         <div class="row">
             <div class="col s12">
                 <h4>Saved drinks
+                    <!-- Knappar som visas beroende på om användaren sorterar eller ej -->
                     <a class="btn-floating green lighten-1 waves-effect right" v-if="!sortDisabled" v-on:click="sortDisabled = !sortDisabled"><i class="material-icons right">done</i></a>
                     <a class="btn-floating purple darken-2 waves-effect right tooltipped" data-tooltip="Edit" v-else v-on:click="sortDisabled = !sortDisabled"><i class="material-icons right">edit</i></a>
                 </h4>
@@ -30,8 +31,7 @@ export default {
     },
     data(){
         return{
-            instances:undefined,
-            drag: false,
+            instances:undefined, // För materialize
             sortDisabled:true
         }
     },
@@ -41,7 +41,7 @@ export default {
         }
     },
     mounted(){
-        var elems = document.querySelectorAll('.tooltipped');
+        let elems = document.querySelectorAll('.tooltipped');
         this.instances = M.Tooltip.init(elems);
     }
 };

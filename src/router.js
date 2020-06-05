@@ -35,7 +35,7 @@ const router = new Router({
         }
 
     ],
-    scrollBehavior(to, from, savedPosition) { // Scrolla till sparad position mellan routes
+    scrollBehavior(to, from, savedPosition) { // Scrolla till sparad position mellan routes (fungerar halvbra just nu)
         if (savedPosition) {
             return savedPosition
         } else {

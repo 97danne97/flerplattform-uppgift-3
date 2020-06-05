@@ -15,6 +15,8 @@ Som tredje uppgift har jag valt att skapa en webbapplikation som hämtar recept 
 
 ### Routes i webbapplikationen:
 
+Hashtag # används i början på routes för att routes ska fungera utan extra konfigurering på webbserver.
+
 ```
 /drinks
 ```
