@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Navbar from './components/layout/Navbar';
 
 export default {
     components: {
