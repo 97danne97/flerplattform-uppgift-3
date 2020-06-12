@@ -89,7 +89,7 @@
 
             <!-- Avancerad filtrering och sortering med hjälp av Vue2Filters -->
             <!-- Skapa DrinkCard för varje drink -->
-            <DrinkCard class="list-item" v-for="drink in orderBy(filterBy(filterItems), this.sort_by.type.toString(), this.sort_mode)" :key="drink.idDrink" :sortDisabled="true" :drink="drink"></DrinkCard>
+            <DrinkCard class="list-item" v-for="drink in orderBy(filterBy(filterItems), this.sort_by.type.toString(), this.sort_mode)" :key="drink.idDrink" :sortDisabled="true" :drink="drink" :markFavorite=true></DrinkCard>
         </transition-group>
 
         <!-- Knapp som genererar fler drinkar -->
