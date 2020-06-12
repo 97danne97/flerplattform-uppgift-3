@@ -18,8 +18,9 @@
                             <form>
                                 <div class="row">
                                     <div class="col s12">
-                                        <h3>Settings</h3>
-                                        <div class="divider"></div>
+                                        <div class="col s12">
+                                            <a @click="filter_by='';sort_by.type='localId';sort_by.reversed=false" class="btn-floating waves-effect purple darken-2"><i class="material-icons">refresh</i></a>
+                                        </div>
                                         <div class="col s12 m6">
                                             <h4>Filters</h4>
                                             <div class="col">
