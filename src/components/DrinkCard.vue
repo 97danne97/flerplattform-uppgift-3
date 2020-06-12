@@ -5,9 +5,13 @@
         <router-link :to="'/drinks/'+drink.idDrink" tag="div" class="card grey lighten-4" :class="{'z-depth-5': !sortDisabled}">
             <div class="card-image"><img :src="drink.strDrinkThumb" /></div>
             <div class="card-content">
-                <p class="truncate grey-text text-darken-1">{{drink.strCategory}}</p>
-                <span class="card-title">{{drink.strDrink}}</span>
-                <p class="truncate grey-text">{{drink.strAlcoholic}}</p>
+                <div class="row">
+                    <div class="col s12 truncate grey-text">{{drink.strCategory}}
+                        <i v-if="isSaved" class="material-icons right yellow-text text-darken-1">star</i>
+                    </div>
+                    <span class="col s12 flow-text truncate">{{drink.strDrink}}</span>
+                    <div class="col s12 truncate" :class="alcoholicColor+'-text'">{{drink.strAlcoholic}}</div>
+                </div>
             </div>
         </router-link>
     </div>
@@ -16,7 +20,27 @@
 <script>
 export default {
     name: "DrinkCard",
-    props: ['drink', 'sortDisabled'] /* Data som skickas från förälder-komponenter */
+    props: ['drink', 'sortDisabled'] /* Data som skickas från förälder-komponenter */,
+    computed:{
+        isSaved(){ // Returnerar om drinken har sparats eller ej
+            let self = this;
+            if(self.$store.state.favorite_drinks.some(e => e['idDrink'] === self.drink.idDrink)){
+                return true;
+            }
+            else{
+                return false;
+            }
+        },
+        alcoholicColor(){
+            if(this.drink.strAlcoholic == 'Alcoholic'){
+                return 'green';
+            }else if(this.drink.strAlcoholic == 'Optional alcohol'){
+                return 'blue';
+            }else{
+                return 'orange';
+            }
+        }
+    }
 }
 </script>
 
