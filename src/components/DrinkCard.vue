@@ -2,7 +2,7 @@
     <div class="col s12 m4 xl3 drink_card_column">
         
         <!-- Kortet fungerar som länk till drinkens recept -->
-        <router-link :to="'/drinks/'+drink.idDrink" tag="div" class="card grey lighten-4" :class="{'z-depth-5': !sortDisabled}">
+        <router-link :to="'/drinks/'+drink.idDrink" tag="div" class="card grey lighten-5 z-depth-0" :class="{'z-depth-5': !sortDisabled}">
             <div class="card-image"><img :src="drink.strDrinkThumb" /></div>
             <div class="card-content">
                 <div class="row">
@@ -50,6 +50,7 @@ export default {
 }
 .card{
     height: calc(100% - 25px); /* Kortet fyller upp höjden av containern - margin */
+    border: 1px solid rgb(226, 226, 226);
 }
 .card:hover{
     cursor: pointer;

@@ -1,6 +1,6 @@
 <template> <!-- Drink recept -->
     <div class="section drink_details_container" v-if="drink"> <!-- När drinken har laddats in -->
-        <div id="drink_details_card" class="card grey lighten-4">
+        <div id="drink_details_card" class="card z-depth-0 grey lighten-4">
             <div class="card-content">
 
                 <!-- Namn och kort information om drinken -->
@@ -145,6 +145,9 @@ export default {
 .drink_details_container{
     max-width: 600px; /* Max-bredd på receptrutan */
     margin: auto; /* Förhålla sig centrerat */
+}
+.card{
+    border: 1px solid rgb(226, 226, 226);
 }
 #drink_img{
     max-height: 200px;
