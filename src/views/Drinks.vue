@@ -95,7 +95,7 @@
         <!-- Knapp som genererar fler drinkar -->
         <div class="row">
             <div class="col s12 center">
-                <button v-if="this.filter_by == '' && !this.sort_mode && this.sort_by.type == 'localId'" v-on:click="randomDrinks(8)" class="btn purple darken-2 waves-effect waves-light"><i class="material-icons left">add</i>load more</button>
+                <button v-if="!this.sort_mode && this.sort_by.type == 'localId'" v-on:click="randomDrinks(8)" class="btn purple darken-2 waves-effect waves-light"><i class="material-icons left">add</i>load more</button>
                 <button v-else class="btn purple darken-2 disabled truncate"><i class="material-icons left">error_outline</i>Use default settings</button>
             </div>
         </div>
