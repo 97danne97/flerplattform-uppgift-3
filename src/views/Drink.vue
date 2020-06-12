@@ -2,6 +2,13 @@
     <div class="section drink_details_container" v-if="drink"> <!-- När drinken har laddats in -->
         <div id="drink_details_card" class="card z-depth-0 grey lighten-4">
             <div class="card-content">
+                
+                <!-- Bild på drinken -->
+                <div class="row center">
+                    <div class="col s12 center">
+                        <img id="drink_img" class="responsive-img z-depth-1" :src="drink.strDrinkThumb" />
+                    </div>
+                </div>
 
                 <!-- Namn och kort information om drinken -->
                 <div class="row center">
@@ -13,20 +20,9 @@
                     </div>
                 </div>
 
-                <!-- Knappar för att sparar eller tar bort från listan med sparade drinkar -->
-                <div class="row center section">
-                    <div class="col s12">
-                        <!-- Knappar som växlas mellan beroende på om receptet är sparat eller ej -->
-                        <a v-if="isSaved" v-on:click="toggleFavorite()" class="btn-flat white-text purple darken-2 waves-effect"><i class="material-icons circle left">done</i>Saved</a>
-                        <a v-else v-on:click="toggleFavorite()" class="btn-flat btn-large grey lighten-2 waves-effect black-text"><i class="material-icons black-text circle left">add</i>Save recipe</a>
-                    </div>
-                </div>
-
-                <!-- Bild på drinken -->
                 <div class="row center">
-                    <div class="col s12 center">
-                        <img id="drink_img" class="responsive-img z-depth-1" :src="drink.strDrinkThumb" />
-                    </div>
+                    <a v-if="isSaved" v-on:click="toggleFavorite()" class="btn-flat yellow darken-2 waves-effect"><i class="material-icons left">star</i>Remove favorite</a>
+                    <a v-else v-on:click="toggleFavorite()" class="btn blue lighten-1 waves-effect"><i class="material-icons left">star_outline</i>Add as favorite</a>
                 </div>
 
                 <!-- Ingredienser -->
