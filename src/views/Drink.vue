@@ -21,8 +21,8 @@
                 </div>
 
                 <div class="row center">
-                    <a v-if="isSaved" v-on:click="toggleFavorite()" class="btn-flat yellow darken-2 waves-effect"><i class="material-icons left">star</i>Remove favorite</a>
-                    <a v-else v-on:click="toggleFavorite()" class="btn blue lighten-1 waves-effect"><i class="material-icons left">star_outline</i>Add as favorite</a>
+                    <a v-if="isSaved" v-on:click="toggleFavorite()" class="btn-flat white-text yellow darken-2 waves-effect"><i class="material-icons left">star</i>Remove favorite</a>
+                    <a v-else v-on:click="toggleFavorite()" class="btn-flat grey lighten-2 waves-effect"><i class="material-icons left">star_outline</i>Add as favorite</a>
                 </div>
 
                 <!-- Ingredienser -->
